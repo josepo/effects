@@ -4,9 +4,9 @@ import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
 import Button from '../UI/Button/Button';
 import Auth from '../../context/Auth';
+import Input from '../UI/Input/Input';
 
-const emailReducer = (email, action) =>
-{
+const emailReducer = (email, action) => {
    if (action.type === "EMAIL_CHANGED") {
       return { value: action.value, valid: action.value.includes('@') };
    }
@@ -17,8 +17,7 @@ const emailReducer = (email, action) =>
    return { value: '', valid: false };
 }
 
-const passwordReducer = (passwd, action) =>
-{
+const passwordReducer = (passwd, action) => {
    if (action.type === 'PASSWORD_CHANGED') {
       return { value: action.value, valid: action.value.trim().length > 6 };
    }
@@ -43,8 +42,8 @@ const Login = () => {
       }, 500);
 
       return () => { clearTimeout(timer); }
-   }, 
-   [email.valid, passwd.valid]);
+   },
+      [email.valid, passwd.valid]);
 
 
    const submitHandler = (event) => {
@@ -56,32 +55,24 @@ const Login = () => {
    return (
       <Card className={classes.login}>
          <form onSubmit={submitHandler}>
-            <div
-               className={`${classes.control} ${ (email.valid === false) ? classes.invalid : ''
-                  }`}
-            >
-               <label htmlFor="email">E-Mail</label>
-               <input
-                  type="email"
-                  id="email"
-                  value={ email.value }
-                  onChange={ e => { dispatchEmail({ type: 'EMAIL_CHANGED', value: e.target.value }); }}
-                  onBlur={ () => { dispatchEmail({ type: 'EMAIL_BLUR' }); }}
-               />
-            </div>
-            <div
-               className={`${classes.control} ${ (passwd.valid === false) ? classes.invalid : ''
-                  }`}
-            >
-               <label htmlFor="password">Password</label>
-               <input
-                  type="password"
-                  id="password"
-                  value={ passwd.value }
-                  onChange={ e => { dispatchPassword({ type: 'PASSWORD_CHANGED', value: e.target.value }); }}
-                  onBlur={ e => { dispatchPassword({ type: 'PASSWORD_BLUR' }); }}
-               />
-            </div>
+            <Input
+               id='email'
+               label='E-Mail'
+               type='email'
+               value={email.value}
+               isValid={email.valid}
+               onChange={e => { dispatchEmail({ type: 'EMAIL_CHANGED', value: e.target.value }); }}
+               onBlur={() => { dispatchEmail({ type: 'EMAIL_BLUR' }); }} />
+
+            <Input
+               id='password'
+               label='Password'
+               type='password'
+               value={ passwd.value }
+               isValid={ passwd.valid }
+               onChange={e => { dispatchPassword({ type: 'PASSWORD_CHANGED', value: e.target.value }); }}
+               onBlur={() => { dispatchPassword({ type: 'PASSWORD_BLUR' }); }} />
+
             <div className={classes.actions}>
                <Button type="submit" className={classes.btn} disabled={!formIsValid}>
                   Login
