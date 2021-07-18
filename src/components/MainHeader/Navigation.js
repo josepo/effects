@@ -3,7 +3,7 @@ import Auth from '../../context/Auth';
 
 import classes from './Navigation.module.css';
 
-const Navigation = (props) => {
+const Navigation = () => {
    const auth = useContext(Auth);
 
    return (
@@ -18,7 +18,7 @@ const Navigation = (props) => {
                <a href="/">Admin</a>
             </li>
             <li>
-               <button onClick={ props.onLogout }>Logout</button>
+               <button onClick={ auth.onLogout }>Logout</button>
             </li>
          </ul>
       }

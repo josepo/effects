@@ -27,8 +27,11 @@ function App() {
    };
 
    return (
-      <Auth.Provider value={{ logged: isLoggedIn }}>
-         <MainHeader onLogout={logoutHandler} />
+      <Auth.Provider value={{
+         logged: isLoggedIn,
+         onLogout: logoutHandler
+      }}>
+         <MainHeader />
          <main>
             {!isLoggedIn && <Login onLogin={loginHandler} />}
             {isLoggedIn && <Home onLogout={logoutHandler} />}
