@@ -3,5 +3,10 @@ import ReactDOM from 'react-dom';
 
 import './index.css';
 import App from './App';
+import { AuthProvider } from './context/Auth';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+   <AuthProvider>
+      <App />
+   </AuthProvider>, 
+   document.getElementById('root'));
